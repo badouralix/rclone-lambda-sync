@@ -1,0 +1,96 @@
+# Consolidated doc https://www.serverless.com/framework/docs/providers/aws/guide/serverless.yml/
+
+service: rclone-lambda
+
+frameworkVersion: "2"
+
+useDotenv: true
+variablesResolutionMode: 20210326
+
+provider:
+  name: aws
+  runtime: python3.8
+  lambdaHashingVersion: 20201221
+  stage: ${opt:stage, "default"}
+  region: ${opt:region, "eu-west-3"}
+  deploymentBucket: ${env:DEPLOYMENT_BUCKET}
+  logRetentionInDays: 30
+  tracing:
+    lambda: true
+
+plugins:
+- serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+
+package:
+  patterns:
+  - "!./**"
+  - lambda_function.py
+  - lambda_types.py
+  - README.md
+
+functions:
+  sync:
+    handler: datadog_lambda.handler.handler
+    layers:
+    - !Sub arn:aws:lambda:${AWS::Region}:464622532012:layer:Datadog-Python38:37
+    - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:rclone:5
+    timeout: 300
+    memorySize: 512
+    reservedConcurrency: 1
+    role: ServerlessRcloneLambdaExecutionRole
+    events:
+    - schedule:
+        name: rclone-lambda-daily
+        rate: rate(1 day)
+    environment:
+      DD_FLUSH_TO_LOG: true
+      DD_LAMBDA_HANDLER: lambda_function.lambda_handler
+      DD_LOGS_INJECTION: true
+      DD_MERGE_XRAY_TRACES: true
+      DD_TRACE_ENABLED: true
+      RCLONE_CONFIG_SSM_NAME: rclone-config
+    tags:
+      env: ${self:provider.stage}
+      service: ${self:service}
+      version: 1.0.0  # Same version in package.json and pyproject.toml
+    dependsOn:
+    - ServerlessRcloneLambdaExecutionRole
+
+resources:
+  Resources:
+    ServerlessRcloneLambdaPolicy:
+      Type: AWS::IAM::ManagedPolicy
+      Properties:
+        Path: /
+        ManagedPolicyName: ServerlessRcloneLambdaPolicy
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Effect: Allow
+            Action:
+            - ssm:GetParameter
+            Resource:
+            - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/rclone-config
+    # https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html
+    ServerlessRcloneLambdaExecutionRole:
+      Type: AWS::IAM::Role
+      Properties:
+        Path: /
+        RoleName: ServerlessRcloneLambdaExecutionRole
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - lambda.amazonaws.com
+            Action: sts:AssumeRole
+        ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
+        - !Sub arn:aws:iam::${AWS::AccountId}:policy/ServerlessRcloneLambdaPolicy
+      DependsOn: ServerlessRcloneLambdaPolicy
