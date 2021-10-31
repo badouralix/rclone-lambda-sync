@@ -1,5 +1,7 @@
 # Rclone Lambda Sync
 
+[![Github Actions Lint](https://github.com/badouralix/rclone-lambda-sync/actions/workflows/lint.yaml/badge.svg)](https://github.com/badouralix/rclone-lambda-sync/actions/workflows/lint.yaml)
+
 A lambda function to run `rclone sync` periodically.
 
 ## Prerequisites
