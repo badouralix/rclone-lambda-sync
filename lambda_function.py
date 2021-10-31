@@ -161,7 +161,7 @@ async def log_stderr(stream: asyncio.StreamReader) -> None:
 
 
 @tracer.wrap()
-def log_rclone(line: str) -> None:
+def log_rclone(line: bytes) -> None:
     """
     log_rclone parses and reshapes rclone json logs.
     """

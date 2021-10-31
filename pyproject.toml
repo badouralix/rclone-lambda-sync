@@ -1,20 +1,20 @@
 [tool.poetry]
 name = "rclone-lambda-sync"
-version = "1.0.0"  # Same version in package.json and serverless.yml
+version = "1.1.0"  # Same version in package.json and serverless.yml
 description = ""
 authors = ["Ayaz Badouraly <badouralix@users.noreply.github.com>"]
 
 [tool.poetry.dependencies]
-python = "~3.8"
-python-json-logger = "^2.0.1"
+python = "~3.9"
+python-json-logger = "^2.0.2"
 
 [tool.poetry.dev-dependencies]
-black = "^21.5b1"
-boto3 = "^1.17.73"
-boto3-stubs = {extras = ["ssm"], version = "^1.17.73"}
-ddtrace = "^0.48.3"
-flake8 = "^3.9.2"
-mypy = "^0.812"
+black = "^21.9b0"
+boto3 = "^1.19.7"
+boto3-stubs = {extras = ["ssm"], version = "^1.19.7"}
+ddtrace = "^0.55.1"
+flake8 = "^4.0.1"
+mypy = "^0.910"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
