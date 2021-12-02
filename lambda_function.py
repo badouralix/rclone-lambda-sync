@@ -1,15 +1,15 @@
 import asyncio
-import boto3
-import botocore.config
 import json
 import logging
 import os
 import tempfile
 
+import boto3
+import botocore.config
 from ddtrace import tracer
-from lambda_types import LambdaContext, LambdaDict
 from pythonjsonlogger import jsonlogger
 
+from lambda_types import LambdaContext, LambdaDict
 
 # We won't use the root logger, but rather a dedicated logger for this __name__
 logger = logging.getLogger(__name__)
