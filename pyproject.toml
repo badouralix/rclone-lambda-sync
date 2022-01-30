@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rclone-lambda-sync"
-version = "1.1.0"  # Same version in package.json and serverless.yml
+version = "1.2.0"  # Same version in package.json and serverless.yaml
 description = ""
 authors = ["Ayaz Badouraly <badouralix@users.noreply.github.com>"]
 
