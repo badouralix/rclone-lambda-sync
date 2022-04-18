@@ -40,7 +40,7 @@ functions:
     handler: datadog_lambda.handler.handler
     layers:
     - !Sub arn:aws:lambda:${AWS::Region}:464622532012:layer:Datadog-Python39:49
-    - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:rclone:7
+    - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:rclone:9
     timeout: 300
     memorySize: 512
     reservedConcurrency: 1
