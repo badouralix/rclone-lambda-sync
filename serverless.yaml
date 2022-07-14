@@ -39,8 +39,8 @@ functions:
   sync:
     handler: datadog_lambda.handler.handler
     layers:
-    - !Sub arn:aws:lambda:${AWS::Region}:464622532012:layer:Datadog-Python39:49
-    - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:rclone:9
+    - !Sub arn:aws:lambda:${AWS::Region}:464622532012:layer:Datadog-Python39:60
+    - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:rclone:11
     timeout: 300
     memorySize: 512
     reservedConcurrency: 1
