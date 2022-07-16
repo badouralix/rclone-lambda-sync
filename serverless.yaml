@@ -25,8 +25,7 @@ custom:
     dockerizePip: non-linux
     # The image lambci/lambda:build-python3.9 does not exist
     # See https://github.com/lambci/docker-lambda/issues/343
-    # For now we can afford to use the default python image
-    dockerImage: python:3.9
+    dockerImage: public.ecr.aws/sam/build-python3.9
 
 package:
   patterns:
