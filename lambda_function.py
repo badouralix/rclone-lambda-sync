@@ -95,12 +95,10 @@ async def run_rclone_sync() -> None:
         "10s",
         "source:",
         "destination:",
-        "--exclude",
-        "/Downloads/**",
-        "--exclude",
-        "/External/**",
-        # "--dry-run",
+        *os.environ["RCLONE_SYNC_EXTRA_FLAGS"].split(),
     ]
+    if os.environ["RCLONE_SYNC_DRY_RUN"] != "false":
+        cmd.append("--dry-run")
     logger.info(f"Running command {cmd}")
     p = await asyncio.create_subprocess_exec(
         *cmd,

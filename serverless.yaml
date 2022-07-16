@@ -55,6 +55,8 @@ functions:
       DD_MERGE_XRAY_TRACES: true
       DD_TRACE_ENABLED: true
       RCLONE_CONFIG_SSM_NAME: rclone-config
+      RCLONE_SYNC_DRY_RUN: false
+      RCLONE_SYNC_EXTRA_FLAGS: --exclude /Downloads/** --exclude /External/**
     tags:
       env: ${self:provider.stage}
       service: ${self:service}
