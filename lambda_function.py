@@ -109,9 +109,9 @@ async def run_rclone_sync(event: LambdaDict) -> None:
         "10s",
         source,
         destination,
-        *os.environ["RCLONE_SYNC_EXTRA_FLAGS"].split(),
+        *os.environ.get("RCLONE_SYNC_EXTRA_FLAGS", "").split(),
     ]
-    if os.environ["RCLONE_SYNC_DRY_RUN"] != "false":
+    if os.environ.get("RCLONE_SYNC_DRY_RUN", "false") != "false":
         cmd.append("--dry-run")
     logger.info(f"Running command {cmd}")
     p = await asyncio.create_subprocess_exec(
