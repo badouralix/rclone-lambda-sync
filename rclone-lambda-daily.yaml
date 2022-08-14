@@ -1,0 +1,3 @@
+- schedule:
+    name: rclone-lambda-daily
+    rate: rate(1 day)

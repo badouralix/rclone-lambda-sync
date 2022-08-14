@@ -17,4 +17,4 @@ var/
 *.egg
 
 # Serverless directories
-.serverless
+.serverless*

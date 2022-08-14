@@ -34,7 +34,7 @@ aws ssm put-parameter --region eu-west-3 --name rclone-config --type SecureStrin
 
 ![AWS Systems Manager > Parameter Store > rclone-config > Overview](https://user-images.githubusercontent.com/19719047/144329662-cb0761db-ba3c-46db-8ef3-e8c5b6ec138f.png)
 
-Also set `DEPLOYMENT_BUCKET` in a new `.env` local file.
+Also set `DEPLOYMENT_BUCKET` and `EVENTS_FILE` in a new `.env` local file.
 
 ## Deploy
 
@@ -57,6 +57,33 @@ serverless invoke --function sync
 |   `RCLONE_SYNC_CONTENT_SOURCE`    |     Name of the sync source in the format "source:path" ( default "source:/" )      |
 |       `RCLONE_SYNC_DRY_RUN`       |             Do a trial run with no permanent changes. ( default false )             |
 |     `RCLONE_SYNC_EXTRA_FLAGS`     | List of flags passed to rclone. See available flags in <https://rclone.org/flags/>. |
+
+## Schedules
+
+By default, `rclone-lambda-sync` runs once a day around 00:00 UTC. See [rclone-lambda-daily.yaml](./rclone-lambda-daily.yaml). This behavior can be customized by following these steps :
+
+1. Create a custom yaml file containing the desired schedules
+
+    ```yaml
+    - schedule:
+        name: rclone-lambda-daily-1
+        rate: cron(0 1 * * ? *)
+        input:
+          RCLONE_CONFIG_SSM_NAME: rclone-config-1
+
+    - schedule:
+        name: rclone-lambda-daily-2
+        rate: cron(0 2 * * ? *)
+        input:
+          RCLONE_CONFIG_SSM_NAME: rclone-config-2
+    ```
+
+1. Change `EVENTS_FILE` value to the name of the custom yaml file in the `.env` local file
+1. Test with a slightly different command
+
+    ```bash
+    serverless invoke --function sync --data '{"RCLONE_CONFIG_SSM_NAME": "rclone-config-1"}'
+    ```
 
 ## Documentation
 
