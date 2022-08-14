@@ -59,7 +59,7 @@ functions:
     tags:
       env: ${self:provider.stage}
       service: ${self:service}
-      version: 1.3.0  # Same version in package.json and pyproject.toml
+      version: ${file(package.json):version}
     dependsOn:
     - ServerlessRcloneLambdaExecutionRole
 
