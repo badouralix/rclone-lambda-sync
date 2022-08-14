@@ -50,11 +50,13 @@ serverless invoke --function sync
 
 ## Configuration
 
-|   Environment Variable    |                                     Description                                     |
-| :-----------------------: | :---------------------------------------------------------------------------------: |
-| `RCLONE_CONFIG_SSM_NAME`  |   Name of the SSM parameter to fetch the config from. ( default "rclone-config" )   |
-|   `RCLONE_SYNC_DRY_RUN`   |             Do a trial run with no permanent changes. ( default false )             |
-| `RCLONE_SYNC_EXTRA_FLAGS` | List of flags passed to rclone. See available flags in <https://rclone.org/flags/>. |
+|       Environment Variable        |                                     Description                                     |
+| :-------------------------------: | :---------------------------------------------------------------------------------: |
+|     `RCLONE_CONFIG_SSM_NAME`      |   Name of the SSM parameter to fetch the config from. ( default "rclone-config" )   |
+| `RCLONE_SYNC_CONTENT_DESTINATION` | Name of the sync destination in the format "dest:path" ( default "destination:/" )  |
+|   `RCLONE_SYNC_CONTENT_SOURCE`    |     Name of the sync source in the format "source:path" ( default "source:/" )      |
+|       `RCLONE_SYNC_DRY_RUN`       |             Do a trial run with no permanent changes. ( default false )             |
+|     `RCLONE_SYNC_EXTRA_FLAGS`     | List of flags passed to rclone. See available flags in <https://rclone.org/flags/>. |
 
 ## Documentation
 

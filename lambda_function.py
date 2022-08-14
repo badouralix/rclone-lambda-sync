@@ -21,7 +21,7 @@ def lambda_handler(event: LambdaDict, context: LambdaContext) -> LambdaDict:
     lambda_handler is the default entrypoint of the lambda.
     """
     update_root_logger()
-    asyncio.run(run_rclone_sync())
+    asyncio.run(run_rclone_sync(event))
 
     return dict()
 
@@ -68,7 +68,7 @@ def update_root_logger() -> None:
 
 
 @tracer.wrap()
-async def run_rclone_sync() -> None:
+async def run_rclone_sync(event: LambdaDict) -> None:
     """
     run_rclone_sync is the main function spawning an rclone process and parsing its output.
     """
@@ -83,7 +83,21 @@ async def run_rclone_sync() -> None:
     # https://github.com/rclone/rclone/blob/386acaa/fs/config/configfile/configfile.go#L95-L100
     # https://github.com/rclone/rclone/blob/386acaa/fs/config/configfile/configfile.go#L53-L93
     # https://github.com/rclone/rclone/blob/386acaa/fs/config/crypt.go#L46-L187
-    filename = get_rclone_config_path()
+    filename = get_rclone_config_path(
+        str(event.get("RCLONE_CONFIG_SSM_NAME", ""))
+        or os.environ.get("RCLONE_CONFIG_SSM_NAME")
+        or "rclone-config"
+    )
+    source = (
+        str(event.get("RCLONE_SYNC_CONTENT_SOURCE", ""))
+        or os.environ.get("RCLONE_SYNC_CONTENT_SOURCE")
+        or "source:/"
+    )
+    destination = (
+        str(event.get("RCLONE_SYNC_CONTENT_DESTINATION", ""))
+        or os.environ.get("RCLONE_SYNC_CONTENT_DESTINATION")
+        or "destination:/"
+    )
     cmd = [
         "rclone",
         "--config",
@@ -93,8 +107,8 @@ async def run_rclone_sync() -> None:
         "sync",
         "--stats",
         "10s",
-        "source:",
-        "destination:",
+        source,
+        destination,
         *os.environ["RCLONE_SYNC_EXTRA_FLAGS"].split(),
     ]
     if os.environ["RCLONE_SYNC_DRY_RUN"] != "false":
@@ -114,7 +128,7 @@ async def run_rclone_sync() -> None:
 
 
 @tracer.wrap()
-def get_rclone_config_path() -> str:
+def get_rclone_config_path(rclone_config_ssm_name: str) -> str:
     """
     get_rclone_config_path retrieves rclone config from AWS SSM and dumps it on a temp file.
     """
@@ -123,7 +137,6 @@ def get_rclone_config_path() -> str:
     )
     ssm_client = boto3.client("ssm", config=boto3_config)
 
-    rclone_config_ssm_name = os.environ["RCLONE_CONFIG_SSM_NAME"]
     rclone_config = ssm_client.get_parameter(
         Name=rclone_config_ssm_name, WithDecryption=True
     )["Parameter"]["Value"]
