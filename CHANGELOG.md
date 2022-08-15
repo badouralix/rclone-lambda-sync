@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v2.0.1
+
 - Fix mypy errors
 - Add changelog
 
