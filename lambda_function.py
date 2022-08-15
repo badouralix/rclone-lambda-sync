@@ -3,11 +3,12 @@ import json
 import logging
 import os
 import tempfile
+from typing import Optional
 
 import boto3
 import botocore.config
 from ddtrace import tracer
-from pythonjsonlogger import jsonlogger
+from pythonjsonlogger import jsonlogger  # type: ignore # https://github.com/madzak/python-json-logger/issues/118
 
 from lambda_types import LambdaContext, LambdaDict
 
@@ -148,10 +149,13 @@ def get_rclone_config_path(rclone_config_ssm_name: str) -> str:
 
 
 @tracer.wrap()
-async def log_stdout(stream: asyncio.StreamReader) -> None:
+async def log_stdout(stream: Optional[asyncio.StreamReader]) -> None:
     """
     log_stdout consumes rclone stdout line by line and generates python logs out of it.
     """
+    if stream is None:
+        logger.error("Invalid stream in log_stdout")
+        return
     while line := await stream.readline():
         try:
             log_rclone(line)
@@ -160,10 +164,13 @@ async def log_stdout(stream: asyncio.StreamReader) -> None:
 
 
 @tracer.wrap()
-async def log_stderr(stream: asyncio.StreamReader) -> None:
+async def log_stderr(stream: Optional[asyncio.StreamReader]) -> None:
     """
     log_stderr consumes rclone stderr line by line and generates python logs out of it.
     """
+    if stream is None:
+        logger.error("Invalid stream in log_stderr")
+        return
     while line := await stream.readline():
         try:
             log_rclone(line)
