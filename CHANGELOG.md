@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Use official markdownlint github action
+
 ## v2.0.1
 
 - Fix mypy errors
