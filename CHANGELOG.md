@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Use official markdownlint github action
+- Update default schedule filename
 
 ## v2.0.1
 
