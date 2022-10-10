@@ -4,6 +4,7 @@
 
 - Use official markdownlint github action
 - Update default schedule filename
+- Upgrade dependencies
 
 ## v2.0.1
 
