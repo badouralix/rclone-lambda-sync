@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 3.0.0
+
 - Use official markdownlint github action
 - Update default schedule filename
 - Upgrade dependencies
