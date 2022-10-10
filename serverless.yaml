@@ -10,6 +10,7 @@ useDotenv: true
 provider:
   name: aws
   runtime: python3.9
+  architecture: arm64
   stage: ${opt:stage, "default"}
   region: ${opt:region, "eu-west-3"}
   deploymentBucket: ${env:DEPLOYMENT_BUCKET}
@@ -38,8 +39,8 @@ functions:
   sync:
     handler: datadog_lambda.handler.handler
     layers:
-    - !Sub arn:aws:lambda:${AWS::Region}:464622532012:layer:Datadog-Python39:60
-    - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:rclone:11
+    - !Sub arn:aws:lambda:${AWS::Region}:464622532012:layer:Datadog-Python39-ARM:62
+    - !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:rclone-arm64:1
     timeout: 300
     memorySize: 512
     reservedConcurrency: 1

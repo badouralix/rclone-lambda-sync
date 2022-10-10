@@ -5,6 +5,7 @@
 - Use official markdownlint github action
 - Update default schedule filename
 - Upgrade dependencies
+- Change default architecture to arm64
 
 ## v2.0.1
 
