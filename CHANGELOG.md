@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 3.1.0
+
 - Bump rclone lambda layer to version 2
 - Add better display of default config
 - Remove docker image override
