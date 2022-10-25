@@ -50,17 +50,17 @@ serverless invoke --function sync
 
 ## Configuration
 
-|       Environment Variable        |                                     Description                                     |
-| :-------------------------------: | :---------------------------------------------------------------------------------: |
-|     `RCLONE_CONFIG_SSM_NAME`      |   Name of the SSM parameter to fetch the config from. ( default "rclone-config" )   |
-| `RCLONE_SYNC_CONTENT_DESTINATION` | Name of the sync destination in the format "dest:path" ( default "destination:/" )  |
-|   `RCLONE_SYNC_CONTENT_SOURCE`    |     Name of the sync source in the format "source:path" ( default "source:/" )      |
-|       `RCLONE_SYNC_DRY_RUN`       |             Do a trial run with no permanent changes. ( default false )             |
-|     `RCLONE_SYNC_EXTRA_FLAGS`     | List of flags passed to rclone. See available flags in <https://rclone.org/flags/>. |
+|       Environment Variable        |                                     Description                                     |                     Default                      |
+| :-------------------------------: | :---------------------------------------------------------------------------------: | :----------------------------------------------: |
+|     `RCLONE_CONFIG_SSM_NAME`      |                 Name of the SSM parameter to fetch the config from.                 |                 `rclone-config`                  |
+| `RCLONE_SYNC_CONTENT_DESTINATION` |               Name of the sync destination in the format "dest:path".               |                 `destination:/`                  |
+|   `RCLONE_SYNC_CONTENT_SOURCE`    |                Name of the sync source in the format "source:path".                 |                    `source:/`                    |
+|       `RCLONE_SYNC_DRY_RUN`       |                      Do a trial run with no permanent changes.                      |                     `false`                      |
+|     `RCLONE_SYNC_EXTRA_FLAGS`     | List of flags passed to rclone. See available flags in <https://rclone.org/flags/>. | `--exclude /Downloads/** --exclude /External/**` |
 
 ## Schedules
 
-By default, `rclone-lambda-sync` runs once a day around 00:00 UTC. See [rclone-lambda-daily.yaml](./rclone-lambda-daily.yaml). This behavior can be customized by following these steps :
+By default, `rclone-lambda-sync` runs once a day around 00:00 UTC. See [rclone_lambda_daily.yaml](./rclone_lambda_daily.yaml). This behavior can be customized by following these steps :
 
 1. Create a custom yaml file containing the desired schedules
 

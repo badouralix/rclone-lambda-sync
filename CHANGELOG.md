@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Bump rclone lambda layer to version 2
+- Add better display of default config
 
 ## 3.0.0
 
