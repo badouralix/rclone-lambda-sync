@@ -140,7 +140,7 @@ def get_rclone_config_path(rclone_config_ssm_name: str) -> str:
 
     rclone_config = ssm_client.get_parameter(
         Name=rclone_config_ssm_name, WithDecryption=True
-    )["Parameter"]["Value"]
+    )["Parameter"].get("Value", "")
 
     f = tempfile.NamedTemporaryFile(buffering=0, delete=False)
     f.write(rclone_config.encode())
