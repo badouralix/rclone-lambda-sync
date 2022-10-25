@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Bump rclone lambda layer to version 2
+
 ## 3.0.0
 
 - Use official markdownlint github action
