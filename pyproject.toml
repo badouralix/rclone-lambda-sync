@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rclone-lambda-sync"
-version = "3.1.0"  # Same version in package.json
+version = "3.2.0"  # Same version in package.json
 description = ""
 authors = ["Ayaz Badouraly <badouralix@users.noreply.github.com>"]
 

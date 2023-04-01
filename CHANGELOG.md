@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 3.2.0
+
 - Bump davidanson/markdownlint-cli2-action from 7 to 9
 - Bump license year
 - Upgrade datadog and rclone lambda layers
