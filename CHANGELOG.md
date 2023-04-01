@@ -5,6 +5,7 @@
 - Bump davidanson/markdownlint-cli2-action from 7 to 9
 - Bump license year
 - Upgrade datadog and rclone lambda layers
+- Upgrade dependencies
 
 ## 3.1.0
 
