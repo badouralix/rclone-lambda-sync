@@ -8,7 +8,7 @@ from typing import Optional
 import boto3
 import botocore.config
 from ddtrace import tracer
-from pythonjsonlogger import jsonlogger  # type: ignore # https://github.com/madzak/python-json-logger/issues/118
+from pythonjsonlogger import jsonlogger
 
 from lambda_types import LambdaContext, LambdaDict
 

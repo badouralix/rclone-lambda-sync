@@ -6,6 +6,7 @@
 - Bump license year
 - Upgrade datadog and rclone lambda layers
 - Upgrade dependencies
+- Remove unneeded mypy annotation
 
 ## 3.1.0
 
