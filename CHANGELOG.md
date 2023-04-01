@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Bump davidanson/markdownlint-cli2-action from 7 to 9
+
 ## 3.1.0
 
 - Bump rclone lambda layer to version 2
