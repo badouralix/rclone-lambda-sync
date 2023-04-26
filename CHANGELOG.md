@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Upgrade to python 3.10
+
 ## 3.2.0
 
 - Bump davidanson/markdownlint-cli2-action from 7 to 9

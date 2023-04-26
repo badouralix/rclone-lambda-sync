@@ -3,7 +3,6 @@ import json
 import logging
 import os
 import tempfile
-from typing import Optional
 
 import boto3
 import botocore.config
@@ -149,7 +148,7 @@ def get_rclone_config_path(rclone_config_ssm_name: str) -> str:
 
 
 @tracer.wrap()
-async def log_stdout(stream: Optional[asyncio.StreamReader]) -> None:
+async def log_stdout(stream: asyncio.StreamReader | None) -> None:
     """
     log_stdout consumes rclone stdout line by line and generates python logs out of it.
     """
@@ -164,7 +163,7 @@ async def log_stdout(stream: Optional[asyncio.StreamReader]) -> None:
 
 
 @tracer.wrap()
-async def log_stderr(stream: Optional[asyncio.StreamReader]) -> None:
+async def log_stderr(stream: asyncio.StreamReader | None) -> None:
     """
     log_stderr consumes rclone stderr line by line and generates python logs out of it.
     """
