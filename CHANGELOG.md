@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 3.3.0
+
 - Upgrade to python 3.10
 - Upgrade dependencies
 
