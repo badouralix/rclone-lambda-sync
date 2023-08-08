@@ -5,6 +5,7 @@
 - Mirror repository to gitlab
 - Bump davidanson/markdownlint-cli2-action from 9 to 10 (<https://github.com/badouralix/rclone-lambda-sync/pull/6>)
 - Bump davidanson/markdownlint-cli2-action from 10 to 11 (<https://github.com/badouralix/rclone-lambda-sync/pull/7>)
+- Upgrade to python 3.11
 
 ## 3.3.0
 
